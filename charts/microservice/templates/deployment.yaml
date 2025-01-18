@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}   # .Values.appName can be defined in values.yaml as 'appname' or
+# via cli when installing helm chart using set flag
+spec:
+  replicas: {{ .Values.appReplicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          image: "{{ .Values.appImage }}:{{ .Values.appVersion }}" # image name + the version of the image
+          ports:
+           - containerPort: {{ .Values.containerPort }}
+          env:
+          {{- range .Values.containerEnvVar}}
+          - name: {{ .name }}
+            value: {{ .value | quote }}    #piped into quote to make it a string. quote is built in feature
+          {{- end}}
+          # 'range' to iterate over a list of variables
+          # Each microservice will have a different number of variables, they can all be defined at once like this.

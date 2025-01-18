@@ -1,0 +1,15 @@
+# The specific values for the microservice. Whatever is defined here will...
+# ...overwrite values.yaml. Anything not defined, will just take the value defined in values.yaml
+appName: currencyservice
+appImage: gcr.io/google-samples/microservices-demo/currencyservice
+appVersion: v0.8.0
+appReplicas: 2
+containerPort: 7000
+containerEnvVars:
+- name: PORT
+  value: "7000"
+- name: DISABLE_PROFILER
+  value: "1"
+
+servicePort: 7000
+serviceType: ClusterIP

@@ -1,0 +1,13 @@
+# The specific values for the microservice. Whatever is defined here will...
+# ...overwrite values.yaml. Anything not defined, will just take the value defined in values.yaml
+appName: shippingservice
+appImage: gcr.io/google-samples/microservices-demo/shippingservice
+appVersion: v0.8.0
+appReplicas: 2
+containerPort: 50051
+containerEnvVars:
+- name: PORT
+  value: "50051"
+
+servicePort: 50051
+serviceType: ClusterIP
